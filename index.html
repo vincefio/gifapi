@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+
+    <title>Jumbotron Template for Bootstrap</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Animal Gifs</a>
+        </div>       
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Hello, world!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="animal-buttons"></div>
+
+      <form id="animal-form">
+        <div class="form-group">
+          <label for="animal-input">Add Animal</label>
+          <input type="text" id="animal-input">
+        </div>
+        <button id="submit" type="submit" class="btn btn-default">Submit</button>
+      </form>
+      
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Heading</h2>
+         
+        </div>
+        <div class="col-md-4">
+          <h2>Heading</h2>
+          
+       </div>
+        <div class="col-md-4">
+          <h2>Heading</h2>
+         
+        </div>
+      </div>
+
+      <hr>
+      
+      <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+      <script type="text/JavaScript">
+        //make an array to hold all of the different types of animals
+        var animals = ["dog", "cat", "rabbit", "hamster", "skunk", "goldfish", "bird", "ferret", "turtle", "sugar glider", "chinchilla", "hedgehog", "hermit crab", "gerbil", "pygmy goat", "chicken", "capybara", "teacup pig", "serval", "salamander", "frog"];
+
+        function displayAnimalButtons(){
+          console.log('function working');
+          var animal = $(this).attr("data-name");
+
+          var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&limit=9&api_key=dc6zaTOxFJmzC";
+          console.log(queryURL);
+
+          $.ajax({
+            url: queryURL,
+            method: 'GET'
+          }).done(function(response) {
+            console.log(response);
+          });
+            }
+
+        //make a function to display all of the buttons off on page load
+        function renderButtons() {
+          $('#animal-buttons').html("");
+
+          //loop through the arrays to add consecutive id's and values
+          for(var i = 0; i < animals.length; i++){
+
+            var a = $('<button>');
+
+            a.attr("class", "animal");
+
+            a.attr("data-name", animals[i]);
+
+            a.text(animals[i]);
+
+            $('#animal-buttons').append(a);
+
+
+          }
+        }
+
+        //events that happen when the submit button is clicked
+        $('#submit').on("click", function(event){
+          event.preventDefault();
+
+          var animalInput = $('#animal-input').val();
+
+          //do not submit if there is nothing in the input
+          if(animalInput != ""){
+            animals.push(animalInput);
+          }
+
+          //clear text box after each submission
+          $('#animal-input').val("");
+
+          renderButtons();
+        });
+
+        //add click event listeners to everthing with animal class
+        $(document).on("click", ".animal", displayAnimalButtons);
+
+        renderButtons();
+
+
+
+      </script>
+      <footer>
+        <p>&copy; 2016 Company, Inc.</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script> -->
+   <!--  <script src="../../dist/js/bootstrap.min.js"></script>
+    IE10 viewport hack for Surface/desktop Windows 8 bug
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+  </body>
+</html>
