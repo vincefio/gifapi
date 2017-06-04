@@ -1,0 +1,57 @@
+.jumbotron{
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+.animal-holder{
+	display: inline-block;
+	margin: 10px;
+}
+
+#submit{
+	margin: 0 auto;
+    display: block;
+}
+
+#form{
+	margin-top: 10px;
+}
+
+img{
+	display: block;
+}
+
+.gif{
+	max-width: 100%;
+	max-height: 150px;
+}
+
+/*body{
+	margin-bottom: 100px;
+}*/
+
+.footer{
+	padding: 25px;
+	clear: both;
+	color: #9d9d9d;
+}
+
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}
+
+/*footer{
+	background-color: #333;
+}*/
+/*.flexcontainer {
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+}*/
