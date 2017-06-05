@@ -70,13 +70,13 @@
           var animal = $(this).attr("data-name");
 
           var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&limit=9&api_key=dc6zaTOxFJmzC";
-          console.log(queryURL);
+          // console.log(queryURL);
 
           $.ajax({
             url: queryURL,
             method: 'GET'
           }).done(function(response) {
-            console.log(response.data);
+            // console.log(response.data);
 
             $('.renderedInfo').empty();
 
@@ -88,6 +88,8 @@
 
            a.attr("id", "newDiv" + i);
 
+           a.attr("data")
+
            a.attr("class", "col-md-4 imgContainer");
 
             $('.renderedInfo').append(a);
@@ -95,7 +97,14 @@
             var gif = $('<img>');
             // console.log(response.data[i].id);
 
-            gif.attr("src", response.data[i].images.original.url);
+            gif.attr("src", response.data[i].images.original_still.url);
+
+            //create an attribute with the still image to switch back and forth
+            gif.attr("data-still", response.data[i].images.original_still.url);
+
+            gif.attr("data-animate", response.data[i].images.original.url);
+
+            gif.attr("data-state", "still");
 
             gif.attr("class", "gif");
 
@@ -155,6 +164,22 @@
           $('#animal-input').val("");
 
           renderButtons();
+        });
+
+        $(document).on("click", ".gif", function(event){
+          // console.log('works');
+          var state = $(this).attr("data-state");
+          
+          if(state === "still"){
+            var src = $(this).attr("data-animate");
+            $(this).attr("src", src);
+            $(this).attr("data-state", "animate"); 
+          }
+          else{
+            var still = $(this).attr("data-still");
+            $(this).attr("src", still);
+            $(this).attr("data-state", "still");
+          }
         });
 
         //add click event listeners to everthing with animal class
